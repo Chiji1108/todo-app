@@ -7,8 +7,6 @@ export type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>().basePath("/api/v1");
 
-const route = app.route("/todos", todos);
-
-export type AppType = typeof route;
+export const route = app.route("/todos", todos);
 
 export default app;
