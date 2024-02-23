@@ -12,6 +12,8 @@ export default defineConfig({
     "./app/components/**/*.{ts,tsx,js,jsx}",
   ],
 
+  presets: ["@pandacss/preset-base", "@park-ui/panda-preset"],
+
   // Files to exclude
   exclude: [],
 
