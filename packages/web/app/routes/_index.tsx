@@ -11,7 +11,7 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Pencil, Plus, Save, Trash } from "lucide-react";
 import { IconButton } from "~/components/ui/icon-button";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
   return [
