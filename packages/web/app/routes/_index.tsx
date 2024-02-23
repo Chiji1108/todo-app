@@ -6,7 +6,11 @@ import { json } from "@remix-run/cloudflare";
 import { Text } from "~/components/ui/text";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { Checkbox } from "~/components/ui/checkbox";
-import type { ActionFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import type {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from "@remix-run/cloudflare";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Pencil, Plus, Save, Trash } from "lucide-react";
@@ -20,11 +24,18 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const client = createClient<paths>({
-  baseUrl: "https://shy-butterfly-78ad.chiji.workers.dev/",
-});
+declare module "@remix-run/cloudflare" {
+  interface AppLoadContext {
+    env: {
+      API_URL: string;
+    };
+  }
+}
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function action({ request, context }: ActionFunctionArgs) {
+  const client = createClient<paths>({
+    baseUrl: context.env.API_URL,
+  });
   const formData = await request.formData();
   console.log("formData: ", formData);
   switch (formData.get("action")) {
@@ -91,7 +102,11 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 }
 
-export async function loader() {
+export async function loader({ context }: LoaderFunctionArgs) {
+  console.info("API_URL: ", context.env.API_URL);
+  const client = createClient<paths>({
+    baseUrl: context.env.API_URL as string,
+  });
   const { data, error } = await client.GET("/todos");
   if (error) throw error;
   return json(data);
