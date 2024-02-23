@@ -63,14 +63,14 @@ importers:
         specifier: ^2.7.2
         version: 2.7.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
       framer-motion:
-        specifier: ^11.0.5
-        version: 11.0.5(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^11.0.6
+        version: 11.0.6(react-dom@18.2.0)(react@18.2.0)
       isbot:
         specifier: ^5.1.0
         version: 5.1.0
       lucide-react:
-        specifier: ^0.336.0
-        version: 0.336.0(react@18.2.0)
+        specifier: ^0.337.0
+        version: 0.337.0(react@18.2.0)
       openapi-fetch:
         specifier: ^0.9.2
         version: 0.9.2
@@ -94,8 +94,8 @@ importers:
         specifier: ^2.7.2
         version: 2.7.2(typescript@5.3.3)(wrangler@3.29.0)
       '@types/react':
-        specifier: ^18.2.57
-        version: 18.2.57
+        specifier: ^18.2.58
+        version: 18.2.58
       '@types/react-dom':
         specifier: ^18.2.19
         version: 18.2.19
@@ -2655,11 +2655,11 @@ packages:
   /@types/react-dom@18.2.19:
     resolution: {integrity: sha512-aZvQL6uUbIJpjZk4U8JZGbau9KDeAwMfmhyWorxgBkqDIEf6ROjRozcmPIicqsUwPUjbkDfHKgGee1Lq65APcA==}
     dependencies:
-      '@types/react': 18.2.57
+      '@types/react': 18.2.58
     dev: true
 
-  /@types/react@18.2.57:
-    resolution: {integrity: sha512-ZvQsktJgSYrQiMirAN60y4O/LRevIV8hUzSOSNB6gfR3/o3wCBFQx3sPwIYtuDMeiVgsSS3UzCV26tEzgnfvQw==}
+  /@types/react@18.2.58:
+    resolution: {integrity: sha512-TaGvMNhxvG2Q0K0aYxiKfNDS5m5ZsoIBBbtfUorxdH4NGSXIlYvZxLJI+9Dd3KjeB3780bciLyAb7ylO8pLhPw==}
     dependencies:
       '@types/prop-types': 15.7.11
       '@types/scheduler': 0.16.8
@@ -5908,8 +5908,8 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
-  /framer-motion@11.0.5(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Lb0EYbQcSK/pgyQUJm+KzsQrKrJRX9sFRyzl9hSr9gFG4Mk8yP7BjhuxvRXzblOM/+JxycrJdCDVmOQBsjpYlw==}
+  /framer-motion@11.0.6(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-BpO3mWF8UwxzO3Ca5AmSkrg14QYTeJa9vKgoLOoBdBdTPj0e81i1dMwnX6EQJXRieUx20uiDBXq8bA6y7N6b8Q==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -6975,8 +6975,8 @@ packages:
       es5-ext: 0.10.62
     dev: true
 
-  /lucide-react@0.336.0(react@18.2.0):
-    resolution: {integrity: sha512-e06J4Qrdrk3BP/hf3MnkW3LnymdthfyEtVbdEg0xPQ/olTEKfOfTv03DYmdRm1+XpaNQdCpiHT7Vi6regbxDCQ==}
+  /lucide-react@0.337.0(react@18.2.0):
+    resolution: {integrity: sha512-Gek5B7EZlEd5HX03xjvjhcG0c7tvWOTTh7tyHVdtPPtal4Mdf9zJPMk5lMoKY8v10lAuLmRGeLZL76OZoSwZ7g==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
