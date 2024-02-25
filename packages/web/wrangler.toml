@@ -1,0 +1,7 @@
+[vars]
+API_HOST = "http://localhost:8787"
+GOOGLE_CLIENT_ID = "305613596596-11ln0ibm98mj5896sapfdfeb95j8fpi7.apps.googleusercontent.com"
+
+[env.production.vars]
+API_HOST = "https://shy-butterfly-78ad.chiji.workers.dev"
+GOOGLE_CLIENT_ID = "305613596596-11ln0ibm98mj5896sapfdfeb95j8fpi7.apps.googleusercontent.com"

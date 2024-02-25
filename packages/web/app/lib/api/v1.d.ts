@@ -94,6 +94,79 @@ export interface paths {
       };
     };
   };
+  "/auth/me": {
+    get: {
+      responses: {
+        /** @description Returns the current user */
+        200: {
+          content: {
+            "application/json": components["schemas"]["User"];
+          };
+        };
+        /** @description Unauthorized */
+        401: {
+          content: {
+            "application/json": {
+              message: string;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/auth/signout": {
+    post: {
+      responses: {
+        /** @description Signs out the user */
+        200: {
+          content: {
+            "application/json": {
+              ok: boolean;
+            };
+          };
+        };
+      };
+    };
+  };
+  "/auth/google": {
+    post: {
+      parameters: {
+        cookie: {
+          g_csrf_token: string;
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/x-www-form-urlencoded": {
+            credential: string;
+            g_csrf_token: string;
+          };
+        };
+      };
+      responses: {
+        /** @description Redirects to the home page */
+        302: {
+          content: never;
+        };
+        /** @description Unauthorized */
+        401: {
+          content: {
+            "application/json": {
+              message: string;
+            };
+          };
+        };
+        /** @description Internal Server Error */
+        500: {
+          content: {
+            "application/json": {
+              message: string;
+            };
+          };
+        };
+      };
+    };
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -103,11 +176,18 @@ export interface components {
     Todo: {
       /** @example 12 */
       id: number;
+      userId: string;
       /** @example shopping */
       title: string;
       /** @example false */
       completed: boolean;
     } | null;
+    User: {
+      /** @example uuid */
+      id: string;
+      /** @example John Doe */
+      name: string | null;
+    };
   };
   responses: never;
   parameters: {

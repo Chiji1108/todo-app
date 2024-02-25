@@ -10,11 +10,21 @@ import {
 } from "@remix-run/react";
 
 import styles from "./index.css";
+import { ExternalScripts } from "remix-utils/external-scripts";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "stylesheet", href: styles },
 ];
+
+declare module "@remix-run/cloudflare" {
+  interface AppLoadContext {
+    env: {
+      API_HOST: string;
+      GOOGLE_CLIENT_ID: string;
+    };
+  }
+}
 
 export default function App() {
   return (
@@ -28,6 +38,8 @@ export default function App() {
       <body>
         <Outlet />
         <ScrollRestoration />
+        {/* {shouldHydrate ? <Scripts /> : <ExternalScripts />} */}
+        <ExternalScripts />
         <Scripts />
         <LiveReload />
       </body>

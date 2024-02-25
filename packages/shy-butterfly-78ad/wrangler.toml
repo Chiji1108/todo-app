@@ -1,7 +1,6 @@
 name = "shy-butterfly-78ad"
 main = "src/index.ts"
 compatibility_date = "2024-02-22"
-node_compat = true
 
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
@@ -16,9 +15,9 @@ database_id = "c756cc81-88d0-4b08-9c04-1f6fb0857b9a"
 
 # Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
 # Docs: https://developers.cloudflare.com/workers/runtime-apis/kv
-# [[kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+[[kv_namespaces]]
+binding = "KV"
+id = "4d380ade26d24005846c91c66c140d60"
 
 # Bind an R2 Bucket. Use R2 to store arbitrarily large blobs of data, such as files.
 # Docs: https://developers.cloudflare.com/r2/api/workers/workers-api-usage/

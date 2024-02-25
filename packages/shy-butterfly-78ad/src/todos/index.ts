@@ -1,8 +1,10 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
+import { getCookie } from 'hono/cookie';
 import { Bindings } from '..';
+import { authorize } from '../auth';
 import { todos } from '../schema';
 import * as schema from '../schema';
 
@@ -12,7 +14,7 @@ const selectTodoSchema = createSelectSchema(todos, {
 	completed: (schema) => schema.completed.openapi({ example: false }),
 }).openapi('Todo');
 
-const app = new OpenAPIHono<{ Bindings: Bindings }>()
+const app = new OpenAPIHono<{ Bindings: Bindings; Variables: { userId: string } }>()
 	.openapi(
 		createRoute({
 			method: 'get',
@@ -38,7 +40,7 @@ const app = new OpenAPIHono<{ Bindings: Bindings }>()
 			const { id } = c.req.valid('param');
 			const db = drizzle(c.env.DB, { schema });
 			const result = await db.query.todos.findFirst({
-				where: eq(todos.id, parseInt(id)),
+				where: and(eq(todos.id, parseInt(id)), eq(todos.userId, c.var.userId)),
 			});
 			if (!result) {
 				return c.json(null, { status: 404 });
@@ -64,7 +66,7 @@ const app = new OpenAPIHono<{ Bindings: Bindings }>()
 		}),
 		async (c) => {
 			const db = drizzle(c.env.DB, { schema });
-			const result = await db.query.todos.findMany();
+			const result = await db.query.todos.findMany({ where: eq(todos.userId, c.var.userId) });
 			return c.json(result);
 		}
 	)
@@ -94,10 +96,12 @@ const app = new OpenAPIHono<{ Bindings: Bindings }>()
 			tags: ['todos'],
 		}),
 		async (c) => {
+			console.log('post');
+			console.log('c.var.userId', c.var.userId);
 			const { title } = c.req.valid('json');
 			const db = drizzle(c.env.DB, { schema });
-			const result = await db.insert(todos).values({ title }).returning();
-			return c.json(result[0]);
+			const [newTodo] = await db.insert(todos).values({ title, userId: c.var.userId }).returning();
+			return c.json(newTodo);
 		}
 	)
 	.openapi(
@@ -132,12 +136,12 @@ const app = new OpenAPIHono<{ Bindings: Bindings }>()
 			const { id } = c.req.valid('param');
 			const { title, completed } = c.req.valid('json');
 			const db = drizzle(c.env.DB, { schema });
-			const result = await db
+			const [updatedTodo] = await db
 				.update(todos)
 				.set({ title, completed })
-				.where(eq(todos.id, parseInt(id)))
+				.where(and(eq(todos.id, parseInt(id)), eq(todos.userId, c.var.userId)))
 				.returning();
-			return c.json(result[0]);
+			return c.json(updatedTodo);
 		}
 	)
 	.openapi(
@@ -166,7 +170,7 @@ const app = new OpenAPIHono<{ Bindings: Bindings }>()
 		async (c) => {
 			const { id } = c.req.valid('param');
 			const db = drizzle(c.env.DB, { schema });
-			await db.delete(todos).where(eq(todos.id, parseInt(id)));
+			await db.delete(todos).where(and(eq(todos.id, parseInt(id)), eq(todos.userId, c.var.userId)));
 			return c.json({ ok: true });
 		}
 	);
